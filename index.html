@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tareas Vuejs</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<style>	
+		.tareaRealizada{
+			text-decoration: line-through;
+		}
+	</style>
+
+</head>
+<body>
+	
+	<div class="container">
+		<div class="content">
+
+			<div class="row">
+				<div class="col">
+					
+					<div id="taskApp">
+						<h1 class="display-2 mb-3">{{ nameApp }}</h1>
+					
+						<form v-on:submit.prevent="agregarTarea">
+							<div class="form-group">						
+								<input id="labeltarea" type="text" v-model="tareas.titulo" class="form-control">
+							</div>
+							<input type="submit" value="Agregar Tarea" class="btn btn-success w-100">						
+						</form>
+					
+						<table class="table table-striped mt-3">
+							<thead class="thead-dark">
+								<tr>
+									<th>Hecho!</th>
+									<th>Tarea</th>
+									<th>Eliminar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="tarea in tareas">
+									<td>
+										<input type="checkbox" v-model="tarea.hecho">
+									</td>
+									<td :class="{tareaRealizada: tarea.hecho}">
+										{{ tarea.titulo }}
+									</td>
+									<td scope="col">
+										<button class="btn btn-danger" v-on:click="eliminarTarea(tarea)">Eliminar</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+	<script>
+		new Vue({
+			el: '#taskApp',
+			data:{
+				nameApp: 'Tareas Vue.js',
+				tareas: [
+					{
+						titulo: 'Tarea 1',
+						hecho: true
+					},
+					{
+						titulo: 'Tarea 2',
+						hecho: false
+					},
+					{
+						titulo: 'Tarea 3',
+						hecho: false
+					},
+					{
+						titulo: 'Tarea 4',
+						hecho: true
+					},
+					{
+						titulo: 'Tarea 5',
+						hecho: true
+					}
+				]
+			},
+			methods:{
+				eliminarTarea (tarea){
+					this.tareas.splice( this.tareas.indexOf(tarea), 1 );
+				},
+				agregarTarea (){
+					this.tareas.push({
+						titulo: this.tareas.titulo,
+						hecho: false
+					});
+
+					this.tareas.titulo = "";
+				}
+			}		
+		});
+	</script>
+</body>
+</html>
