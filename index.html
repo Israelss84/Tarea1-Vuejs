@@ -10,6 +10,15 @@
 		.tareaRealizada{
 			text-decoration: line-through;
 		}
+
+		.tareaColor{
+			color: red;
+		}
+
+		form span{
+			color: red;
+			font-weight: bold
+		}
 	</style>
 
 </head>
@@ -27,6 +36,7 @@
 						<form v-on:submit.prevent="agregarTarea">
 							<div class="form-group">						
 								<input id="labeltarea" type="text" v-model="tareas.titulo" class="form-control">
+								<span v-if="!tareas.titulo">*Requerido</span>
 							</div>
 							<input type="submit" value="Agregar Tarea" class="btn btn-success w-100">						
 						</form>
@@ -44,7 +54,7 @@
 									<td>
 										<input type="checkbox" v-model="tarea.hecho">
 									</td>
-									<td :class="{tareaRealizada: tarea.hecho}">
+									<td :class="{tareaRealizada: tarea.hecho, tareaColor: tarea.hecho}">
 										{{ tarea.titulo }}
 									</td>
 									<td scope="col">
