@@ -50,6 +50,11 @@
 								</tr>
 							</thead>
 							<tbody>
+								<tr v-if="tareas.length === 0">
+									<td colspan="3" class="text-center">
+										No se encontraron resultados
+									</td>
+								</tr>
 								<tr v-for="tarea in tareas">
 									<td>
 										<input type="checkbox" v-model="tarea.hecho">
